@@ -1,4 +1,4 @@
-
+const Mock = require('mockjs')
 const tokens = {
   admin: {
     token: 'admin-token'
@@ -22,6 +22,17 @@ const users = {
     name: 'Normal Editor'
   }
 }
+
+const CollectionList = Mock.mock({
+  'items|10': [{
+    "name": "@name",
+    "msg": "@sentence(5)",
+    "type|1": ["Computer", "SEM", "Communication", "Other"],
+    "img": function () {
+      return "@image('200x150', '" + "@color" + "', '" + this.name + "')"
+    }
+  }]
+})
 
 module.exports = [
   // user login
@@ -78,6 +89,21 @@ module.exports = [
       return {
         code: 20000,
         data: 'success'
+      }
+    }
+  }
+  ,
+  {
+    url: '/vue-admin-template/user/collectionList',
+    type: 'get',
+    response: config => {
+      const items = CollectionList.items
+      return {
+        code: 20000,
+        data: {
+          total: items.length,
+          items: items
+        }
       }
     }
   }

@@ -22,3 +22,10 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function getCollectionList() {
+  return request({
+    url: '/vue-admin-template/user/collectionList',
+    method: 'get'
+  })
+}
